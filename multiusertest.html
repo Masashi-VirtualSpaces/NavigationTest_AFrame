@@ -25,15 +25,14 @@
       <a-asset-item id="tree" src="/tree.dae" rotation="0 180 0"></a-asset-item>
       <a-mixin id="tall_tree" collada-model="#tree"></a-mixin>
       
-      <a-asset-item id="tree3" src="/env/Models/tree-type3.dae" rotation="0 180 0"></a-asset-item>
-      <a-mixin id="tree-type3" collada-model="#tree3"></a-mixin>
-      
+      <a-asset-item id="tree3" src="/env/Models/Tree3.dae" rotation="0 180 0"></a-asset-item>
+      <a-mixin id="tree_3" collada-model="#tree3"></a-mixin>
     </a-assets>
     <!--ENVIRONMENT (to be added)-->
     <a-entity collada-model="#table" position="0 0 -1.11"></a-entity>
     <a-entity mixin="tall_tree" position="0 0 -5"></a-entity>
 
-    <a-entity mixin="tree-type3" position="0 0 -10"></a-entity>
+    <a-entity mixin="tree_3" position="0 0 10"></a-entity>
     
     <!--SKY -->
       <a-sky id="sky" color="#A1DFFF"></a-sky>
