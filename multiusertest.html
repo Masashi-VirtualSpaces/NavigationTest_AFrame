@@ -1,0 +1,63 @@
+<!--COPYRIGHT 2017 Virtual Spaces -->
+<head>
+  <title>Multi User Test</title>
+<script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
+<script src="https://unpkg.com/aframe-firebase-component@^4.0.0/dist/aframe-firebase-component.min.js"></script>
+<script src="/src/sync-position.js"></script>
+<script src="https://rawgit.com/ryanbetts/aframe-daydream-controller-component/master/dist/aframe-daydream-controller-component.min.js"></script>
+<script src="/src/aframe-teleport-controls-component.js"></script>
+</head>
+<body>
+  <!--FIREBASE API -->
+  <a-scene firebase="apiKey: AIzaSyDvfpiYczbO6J_Q9aSgumIjSwXtSTKV4vw;
+                     authDomain: multiplayer-50bcd.firebaseapp.com;
+                     databaseURL: https://multiplayer-50bcd.firebaseio.com;
+                     storageBucket: multiplayer-50bcd.appspot.com">
+    
+    <!--ASSETS-->
+    <a-assets>
+      <a-asset-item id="player_head" src="/avatar/player_head.dae" rotation="0 180 0" scale="2 2 2"></a-asset-item>
+      <a-asset-item id="player_body" src="/avatar/player_body.dae" rotation="0 180 0"></a-asset-item>
+      <a-mixin id="top" collada-model="#player_head"></a-mixin>
+      <a-mixin id="torso" collada-model="#player_body"></a-mixin>
+      
+      <a-asset-item id="table" src="/scale_table.dae" rotation="0 180 0"></a-asset-item>
+      <a-asset-item id="tree" src="/tree.dae" rotation="0 180 0"></a-asset-item>
+      <a-mixin id="tall_tree" collada-model="#tree"></a-mixin>
+    </a-assets>
+    <!--ENVIRONMENT (to be added)-->
+    <a-entity collada-model="#table" position="0 0 -1.11"></a-entity>
+    <a-entity mixin="tall_tree" position="0 0 -5"></a-entity>
+
+    <!--SKY -->
+      <a-sky id="sky" color="#A1DFFF"></a-sky>
+      
+    <!--GROUND-->
+    <a-plane id="ground" color="#CCC" height="20" width="20" rotation="-90 0 0" position="0 0 0"></a-plane>
+
+    <!-- END ENVIRONMENT -->
+    
+    
+    <!--PLAYER AVATAR-->
+    <a-entity id="avatar" firebase-broadcast=" componentsOnce:collada-model; components:position, rotation">
+      <a-entity id="head" mixin="top" position="0 0 0" camera="userHeight:2.0547" look-controls wasd-controls firebase-broadcast=" componentsOnce:mixin; components:position, rotation"></a-entity>
+      <a-entity mixin="torso" scale position="0 0.4 0" sync-position="#head" firebase-broadcast=" componentsOnce:mixin; components:position, rotation, scale"></a-entity>
+    </a-entity>
+      <!--Daydream Controller
+      <a-entity id="remote" daydream-controller raycaster="objects: .selectable">
+          <a-cone id="ray" color="cyan" position="0 0 -2" rotation="-90 0 0" radius-bottom="0.005" radius-top="0.001" height="4"></a-cone>
+      </a-entity>
+       --> 
+       
+      <!--Vive/Oculus Controls-->
+      <a-entity hand-controls="left" firebase-broadcast=" componentsOnce:entity; components:position, rotation"></a-entity>
+      <a-entity hand-controls="right" firebase-broadcast=" componentsOnce:entity; components:position, rotation"></a-entity>
+    
+      <!--Daydream Controller with teleport component
+      <a-entity id="remote" daydream-controller teleport-controls></a-entity> 
+      --> 
+    
+    <!--END PLAYER AVATAR -->
+    
+  </a-scene>
+</body>
